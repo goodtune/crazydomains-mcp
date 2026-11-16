@@ -214,7 +214,7 @@ func (c *Client) once(ctx context.Context, method, u string, payload []byte) (in
 	if err != nil {
 		return 0, nil, fmt.Errorf("request failed: %w", scrubURLError(err))
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 	raw, err := io.ReadAll(io.LimitReader(resp.Body, maxResponseBytes))
 	if err != nil {
 		return 0, nil, fmt.Errorf("read response: %w", err)

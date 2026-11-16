@@ -1,0 +1,13 @@
+version: "2"
+linters:
+  default: standard
+  enable:
+    - misspell
+    - unconvert
+  exclusions:
+    presets:
+      - std-error-handling
+    rules:
+      # Unchecked writes/closes on test servers and fixtures are noise.
+      - path: _test\.go
+        linters: [errcheck]
